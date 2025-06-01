@@ -6,7 +6,8 @@ pipeline {
   }
 
   environment {
-    CI = 'true'
+    CI = 'true',
+    MONGO_URI = 'mongodb+srv://nktechdata:WLAvke76jEAmogW8@habitflow.3cuv1kj.mongodb.net/habitflow?retryWrites=true&w=majority'
   }
 
   stages {
