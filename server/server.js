@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 const rateLimit = require("express-rate-limit");
-const errorHandler = require("./middlewares/errorHandler");
+const errorHandler = require("./middleware/errorHandler");
 
 const limiter = rateLimit({
   windowMs: 1 * 60 * 1000, // 1 minute
