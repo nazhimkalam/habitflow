@@ -23,7 +23,7 @@ pipeline {
       steps {
         echo '🧪 Running backend tests...'
         dir('server') {
-          sh 'NODE_ENV=test npm test'
+          sh 'npm test'
         }
       }
     }
