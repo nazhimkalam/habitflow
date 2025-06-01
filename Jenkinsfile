@@ -7,58 +7,30 @@ pipeline {
 
   stages {
     stage('Install Backend Dependencies') {
-      agent {
-        docker {
-          image 'node:18-alpine'
-        }
-      }
       steps {
-        dir('server') {
-          echo '📦 Installing backend dependencies...'
-          sh 'npm install'
-        }
+        echo '📦 Installing backend dependencies...'
+        sh 'docker run --rm -v $PWD/server:/app -w /app node:18-alpine sh -c "npm install"'
       }
     }
 
     stage('Run Backend Tests') {
-      agent {
-        docker {
-          image 'node:18-alpine'
-        }
-      }
       steps {
-        dir('server') {
-          echo '🧪 Running backend tests...'
-          sh 'npm test'
-        }
+        echo '🧪 Running backend tests...'
+        sh 'docker run --rm -v $PWD/server:/app -w /app node:18-alpine sh -c "npm test"'
       }
     }
 
     stage('Install Frontend Dependencies') {
-      agent {
-        docker {
-          image 'node:18-alpine'
-        }
-      }
       steps {
-        dir('client') {
-          echo '📦 Installing frontend dependencies...'
-          sh 'npm install'
-        }
+        echo '📦 Installing frontend dependencies...'
+        sh 'docker run --rm -v $PWD/client:/app -w /app node:18-alpine sh -c "npm install"'
       }
     }
 
     stage('Build Frontend') {
-      agent {
-        docker {
-          image 'node:18-alpine'
-        }
-      }
       steps {
-        dir('client') {
-          echo '🔧 Building frontend...'
-          sh 'npm run build'
-        }
+        echo '🔧 Building frontend...'
+        sh 'docker run --rm -v $PWD/client:/app -w /app node:18-alpine sh -c "npm run build"'
       }
     }
   }
