@@ -9,8 +9,10 @@ const Habit = require("../models/Habit");
 chai.use(chaiHttp);
 const { expect } = chai;
 
+let token = "test-token";
+let createdHabitId = "";
+
 describe("Habit API", () => {
-  let createdHabitId = "";
 
   before(async () => {
     await mongoose.connect(process.env.MONGO_URI, {
