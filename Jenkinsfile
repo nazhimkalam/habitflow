@@ -7,6 +7,7 @@ pipeline {
 
   environment {
     CI = 'true'
+    NODE_ENV = 'test'
     MONGO_URI = 'mongodb+srv://nktechdata:WLAvke76jEAmogW8@habitflow.3cuv1kj.mongodb.net/habitflow?retryWrites=true&w=majority'
   }
 
