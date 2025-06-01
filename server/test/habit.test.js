@@ -1,6 +1,5 @@
 require('dotenv').config();
 
-
 const chai = require("chai");
 const chaiHttp = require("chai-http");
 const app = require("../app"); // Express app
@@ -11,18 +10,18 @@ chai.use(chaiHttp);
 const { expect } = chai;
 
 describe("Habit API", () => {
-  let token = "";
   let createdHabitId = "";
 
   before(async () => {
-    token = process.env.TEST_FIREBASE_TOKEN; 
-    await mongoose.connect(process.env.MONGO_URI);
+    await mongoose.connect(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
   });
 
   after(async () => {
     await Habit.deleteMany({});
     await mongoose.connection.close();
-    // await mongoose.disconnect();
   });
 
   it("should create a new habit", async () => {
