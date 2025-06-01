@@ -2,19 +2,16 @@ pipeline {
   agent any
 
   environment {
-    // Set environment variables if needed (e.g., NODE_ENV)
-    NODE_ENV = 'development'
+    CI = 'true'
   }
 
   stages {
-    stage('Checkout') {
-      steps {
-        echo '📥 Cloning the repository...'
-        checkout scm
-      }
-    }
-
     stage('Install Backend Dependencies') {
+      agent {
+        docker {
+          image 'node:18-alpine'
+        }
+      }
       steps {
         dir('server') {
           echo '📦 Installing backend dependencies...'
@@ -24,6 +21,11 @@ pipeline {
     }
 
     stage('Run Backend Tests') {
+      agent {
+        docker {
+          image 'node:18-alpine'
+        }
+      }
       steps {
         dir('server') {
           echo '🧪 Running backend tests...'
@@ -33,6 +35,11 @@ pipeline {
     }
 
     stage('Install Frontend Dependencies') {
+      agent {
+        docker {
+          image 'node:18-alpine'
+        }
+      }
       steps {
         dir('client') {
           echo '📦 Installing frontend dependencies...'
@@ -42,22 +49,24 @@ pipeline {
     }
 
     stage('Build Frontend') {
-      steps {
-        dir('client') {
-          echo '🔧 Building React app...'
-          sh 'npm run build'
+      agent {
+        docker {
+          image 'node:18-alpine'
         }
       }
-    }
-
-    stage('Post-Build Success') {
       steps {
-        echo '✅ All steps completed successfully!'
+        dir('client') {
+          echo '🔧 Building frontend...'
+          sh 'npm run build'
+        }
       }
     }
   }
 
   post {
+    success {
+      echo '✅ Build successful!'
+    }
     failure {
       echo '❌ Build failed. Please check the console output above.'
     }
