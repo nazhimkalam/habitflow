@@ -81,22 +81,22 @@ pipeline {
       }
     }
 
-    stage('Deploy to Local') {
-      steps {
-        echo '🚀 Deploying containers locally with docker-compose...'
+    // stage('Deploy to Local') {
+    //   steps {
+    //     echo '🚀 Deploying containers locally with docker-compose...'
         
-        // 👇 This creates the missing .env file
-        sh '''
-          echo "MONGO_URI=mongodb+srv://nktechdata:WLAvke76jEAmogW8@habitflow.3cuv1kj.mongodb.net/habitflow?retryWrites=true&w=majority" > server/.env
-        '''
+    //     // 👇 This creates the missing .env file
+    //     sh '''
+    //       echo "MONGO_URI=mongodb+srv://nktechdata:WLAvke76jEAmogW8@habitflow.3cuv1kj.mongodb.net/habitflow?retryWrites=true&w=majority" > server/.env
+    //     '''
         
-        // Safely stop any old containers (ignores error)
-        sh 'docker-compose down || true'
+    //     // Safely stop any old containers (ignores error)
+    //     sh 'docker-compose down || true'
         
-        // Start the app
-        sh 'docker-compose up -d'
-      }
-    }
+    //     // Start the app
+    //     sh 'docker-compose up -d'
+    //   }
+    // }
 
   }
 
