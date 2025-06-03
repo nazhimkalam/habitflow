@@ -80,6 +80,16 @@ pipeline {
         archiveArtifacts artifacts: '*.tar', fingerprint: true
       }
     }
+
+    stage('Deploy to Local') {
+      steps {
+        echo '🚀 Deploying containers locally with docker-compose...'
+        sh '''
+          docker-compose down || true
+          docker-compose up -d
+        '''
+      }
+    }
   }
 
   post {
