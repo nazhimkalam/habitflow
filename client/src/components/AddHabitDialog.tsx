@@ -8,7 +8,6 @@ import {
   TextField,
   MenuItem,
   Stack,
-  Typography,
   Divider,
 } from "@mui/material";
 import axios from "axios";
@@ -58,6 +57,12 @@ const AddHabitDialog = ({ open, handleClose, onHabitCreated, onHabitUpdated, edi
       handleClose();
     } catch (err) {
       alert("Failed to save habit");
+    } finally {
+      setFormData({
+        title: "",
+        description: "",
+        frequency: "daily",
+      });
     }
   };
 
